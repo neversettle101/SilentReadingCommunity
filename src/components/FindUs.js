@@ -4,8 +4,11 @@ import { Form, FormControl, Dropdown } from 'react-bootstrap';
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { Element } from "react-scroll";
+import SearchComponent from "./SearchComponent.js";
+import { Link } from 'react-router-dom';
 
-export const Contact = () => {
+export const FindUs = () => {
   const mapStyles = {
     height: "100vh",
     width: "100%",
@@ -20,8 +23,9 @@ const [zoomLevel, setZoomLevel] = useState(5);
 
   
 const [searchTerm, setSearchTerm] = useState('');
-  const [filteredResults, setFilteredResults] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+const [isCommunitySelected, setIsCommunitySelected] = useState(false);
+const [filteredResults, setFilteredResults] = useState([]);
+const [showDropdown, setShowDropdown] = useState(false);
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -40,6 +44,13 @@ const [searchTerm, setSearchTerm] = useState('');
     }
   };
 
+  const preprocessCity = (city) => {
+    const [mainPart] = city.split(','); 
+    return mainPart.toLowerCase()          // Convert to lowercase
+    .replace(/[^a-zA-Z]/g, '') // Remove non-alphabetic characters (like spaces, commas)
+    .trim();   
+  };
+
   const data = [
     {name: 'Pune Reads, Pune', location: {lat: 18.5170408, lng:73.8318331 }},
     {name:'Bandra Reads, Mumbai',location: {lat: 19.0595157, lng:72.7390011 }},
@@ -52,6 +63,7 @@ const [searchTerm, setSearchTerm] = useState('');
   const handleSelect = (value) => {
     setSearchTerm(value);
     setShowDropdown(false);
+    setIsCommunitySelected(true);
 
     for (let i = 0; i < data.length; i++) {
       if(data[i].name == value){
@@ -63,10 +75,14 @@ const [searchTerm, setSearchTerm] = useState('');
   };
 
   return (
-    <section className="contact" id="findus">
+    <Element name="FindUs">
+    <section className="FindUs" id="findus">
       <Container>
         <Row className="align-items-center">
+        <Col md={2}> 
         <h2>Find Us</h2>
+        </Col>
+        <Col md={5}> 
         <section className="search" id="search">
       <Form>
         <FormControl
@@ -92,6 +108,7 @@ const [searchTerm, setSearchTerm] = useState('');
         </Dropdown>
       )}
     </section>
+        </Col>
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) =>
@@ -113,8 +130,23 @@ const [searchTerm, setSearchTerm] = useState('');
               </div>}
             </TrackVisibility>
           </Col>
+          <Col>
+          {isCommunitySelected && (
+            <Link to={`/city/${preprocessCity(searchTerm)}`}
+            smooth={true}
+            duration={40}
+            className="vvd"
+            >
+            <button>
+              {searchTerm}
+            </button>
+        </Link>
+      )}
+          </Col>
         </Row>
       </Container>
     </section>
+    </Element>
+    
   )
 }

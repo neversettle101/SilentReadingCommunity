@@ -3,9 +3,13 @@ import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+
 import TrackVisibility from 'react-on-screen';
 
-export const Banner = () => {
+export const Info = ({scrollToComponent={scrollToComponent} }) => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
@@ -48,7 +52,7 @@ export const Banner = () => {
   }
 
   return (
-    <section className="banner" id="home">
+    <section className="Info" id="Info">
       <Container>
         <Row className="aligh-items-center">
           <Col xs={12} md={6} xl={7}>
@@ -57,8 +61,8 @@ export const Banner = () => {
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                 <span className="tagline">First ever Silent Reading Commuity</span>
                 <h1>{`Fall in love with reading`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "amidst nature", "amidst nature", "amidst nature" ]'><span className="wrap">{text}</span></span></h1>
-                  <p>Our mission is to make the world read regularly and normalise reading outdoors, serving as a reminder to a generation that has forgotten to read.</p>
-                  <button onClick={() => console.log('connect')}>Learn More <ArrowRightCircle size={25} /></button>
+                  <p>Our mission is to make the world read regularly and normalise reading outdoors, serving as a reminder to a generation that has forgotten to read.</p>  
+                  <button onClick={() => scrollToComponent('FindUs')}>Find Near Me <ArrowRightCircle size={25} /></button>
               </div>}
             </TrackVisibility>
           </Col>

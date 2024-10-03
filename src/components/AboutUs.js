@@ -6,6 +6,7 @@ import punereads from "../assets/img/punereads.jpg";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { Element } from "react-scroll";
 
 export const AboutUs = () => {
 
@@ -31,6 +32,7 @@ export const AboutUs = () => {
   ];
 
   return (
+    <Element name="AboutUs">
     <section className="project" id="AboutUS">
       <Container>
         <Row>
@@ -82,5 +84,6 @@ export const AboutUs = () => {
       </Container>
       <img className="background-image-right" src={colorSharp2}></img>
     </section>
+    </Element>
   )
 }
