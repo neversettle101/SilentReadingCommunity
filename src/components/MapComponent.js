@@ -22,7 +22,7 @@ const MapComponent = ({ data }) => {
 
     return (
         <LoadScript
-            googleMapsApiKey=" "
+            googleMapsApiKey=""
         >
             <GoogleMap
                 mapContainerStyle={mapStyles}
